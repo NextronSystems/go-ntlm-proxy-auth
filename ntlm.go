@@ -12,7 +12,7 @@ import (
 	"net/url"
 	"strings"
 
-	ntlmssp "github.com/Azure/go-ntlmssp"
+	"github.com/Azure/go-ntlmssp"
 )
 
 // DialContext is the DialContext function that should be wrapped with a
@@ -82,7 +82,7 @@ func WrapDialContext(dialContext DialContext, proxyAddress, proxyUsername, proxy
 		}
 		// NTLM Step 3: Send Authorization Message
 		debugf("ntlm> Processing NTLM challenge with username '%s' and password with length %d", proxyUsername, len(proxyPassword))
-		authenticateMessage, err := ntlmssp.ProcessChallenge(challengeMessage, proxyUsername, proxyPassword)
+		authenticateMessage, err := ntlmssp.ProcessChallenge(challengeMessage, proxyUsername, proxyPassword, true)
 		if err != nil {
 			debugf("ntlm> Could not process the NTLM challenge: %s", err)
 			return conn, err
